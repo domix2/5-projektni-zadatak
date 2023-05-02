@@ -4,6 +4,7 @@ from korisnik import get_korisnik
 from kategorija import get_kategorija
 
 def unos_prodaje(korisnici, kategorije, redni_broj):
+
     prodaja = {}
     dan = int(input(f'Unesite dan isteka {redni_broj}. prodaje:'))
     mjesec = int(input(f'Unesite mjesec {redni_broj}. prodaje:'))

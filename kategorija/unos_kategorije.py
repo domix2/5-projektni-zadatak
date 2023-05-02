@@ -1,6 +1,7 @@
 from artikl import unos_artikla
 from utillities import unos_pozitivnog_cijelog_broja
 def unos_kategorije(redni_broj):
+
     kategorija = {}
     naziv = input(f'Unesite naziv {redni_broj}. kategorije:').capitalize()
     kategorija['naziv'] = naziv
