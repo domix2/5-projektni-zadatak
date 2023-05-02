@@ -1,5 +1,4 @@
 from datetime import date
-
 def unos_pozitivnog_cijelog_broja(poruka):
     while True:
         try:
