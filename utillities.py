@@ -67,3 +67,14 @@ def unos_telefona(poruka):
             print(e)
         else:
             return broj
+def unos_mail_m(poruka):
+    while True:
+        try:
+            email = input(poruka)
+            index = email.index('@')
+
+        except ValueError:
+            print('Uneseni mail mora sadržavati znak @!')
+
+        else:
+            return email

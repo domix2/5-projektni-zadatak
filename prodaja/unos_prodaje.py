@@ -1,36 +1,35 @@
-from datetime import date
-from artikl import get_artikl
 from korisnik import get_korisnik
 from kategorija import get_kategorija
+from artikl import get_artikl
+from utillities import unos_datuma, unos_intervala
+from .prodaja import Prodaja
+
 
 def unos_prodaje(korisnici, kategorije, redni_broj):
+    datum = unos_datuma('Unesite dan isteka prodaje: ')
 
-    prodaja = {}
-    dan = int(input(f'Unesite dan isteka {redni_broj}. prodaje:'))
-    mjesec = int(input(f'Unesite mjesec {redni_broj}. prodaje:'))
-    godina = int(input(f'Unesite godinu {redni_broj}. prodaje:'))
-    prodaja['datum'] = date(godina, mjesec, dan)
-
-    print(f'Odaberite korisnika {redni_broj}. prodaje:')
+    # Odabir korisnika
+    print(f"Odaberite korisnika {redni_broj}. prodaje: ")
 
     for i, korisnik in enumerate(korisnici, start=1):
         print(get_korisnik(i, korisnik))
 
-    odabrani_korisnik = int(input("Odaberi korisnika: "))-1
+    odabrani_korisnik = unos_intervala(1, len(korisnici))
+    korisnik = korisnici[odabrani_korisnik - 1]
 
-    print(f"Odaberite kategoriju {redni_broj}. prodaje:")
-    for i, artikl in enumerate(kategorije, start=1):
-        print(get_kategorija(i, kategorije))
+    # Odabir kategorije
+    print(f"Odaberite kategoriju {redni_broj}. prodaje: ")
+    for i, kategorija in enumerate(kategorije, start=1):
+        print(get_kategorija(i, kategorija))
 
-    odabrana_kategorija = int(input("Odabrana kategorija:")) - 1
+    odabrana_kategorija = unos_intervala(1, len(kategorije))
 
-    print(f"Odaberite artikl {redni_broj}. prodaje:")
-    for i,artikl in enumerate(kategorije[odabrana_kategorija]['artikli'], start=1):
+    # Odabir artikla
+    print(f"Odaberite artikl {redni_broj}. prodaje: ")
+    for i, artikl in enumerate(kategorije[odabrana_kategorija - 1].artikli, start=1):
         print(get_artikl(i, artikl))
 
-    odabrani_artikl = int(input("Odabrani artikl:"))-1
+    odabrani_artikl = unos_intervala(1, len(kategorije[odabrana_kategorija - 1].artikli))
 
-    prodaja['artikl'] = kategorije[odabrana_kategorija]['artikli'][odabrani_artikl]
-    prodaja['korisnik'] = korisnici[odabrani_korisnik]
-    return prodaja
-
+    artikl = kategorije[odabrana_kategorija - 1].artikli[odabrani_artikl - 1]
+    return Prodaja(datum, korisnik, artikl)
